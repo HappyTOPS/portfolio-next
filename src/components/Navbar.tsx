@@ -10,12 +10,14 @@ export default function Navbar() {
   const { theme, toggle } = useTheme();
   const [open, setOpen] = useState(false);
 
+  const openChat = () => window.dispatchEvent(new CustomEvent("open-chat"));
+
   const links = [
     { href: "#experience", label: t("nav.experience") },
     { href: "#skills", label: t("nav.skills") },
     { href: "#projects", label: t("nav.projects") },
-    { href: "#contact", label: t("nav.contact") },
-  ];
+    { action: openChat, label: t("nav.contact") },
+  ] as const;
 
   return (
     <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border">
@@ -26,15 +28,25 @@ export default function Navbar() {
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-            >
-              {link.label}
-            </a>
-          ))}
+          {links.map((link) =>
+            "href" in link ? (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <button
+                key={link.label}
+                onClick={link.action}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 cursor-pointer"
+              >
+                {link.label}
+              </button>
+            )
+          )}
           <div className="flex items-center gap-1">
             {(["hy", "ru", "en"] as const).map((l) => (
               <button
@@ -110,16 +122,26 @@ export default function Navbar() {
             className="md:hidden border-b border-border bg-background"
           >
             <div className="px-6 py-4 space-y-3">
-              {links.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
+              {links.map((link) =>
+                "href" in link ? (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <button
+                    key={link.label}
+                    onClick={() => { link.action(); setOpen(false); }}
+                    className="block text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  >
+                    {link.label}
+                  </button>
+                )
+              )}
               <div className="flex items-center gap-1 pt-2 border-t border-border">
                 {(["hy", "ru", "en"] as const).map((l) => (
                   <button
