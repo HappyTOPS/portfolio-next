@@ -74,40 +74,41 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
-          className="absolute bottom-1 left-1/2 -translate-x-1/2 flex flex-col items-center cursor-pointer"
-          onClick={() => {
-            document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" });
-          }}
-        >
-          <span className="text-[10px] text-muted-foreground/60 tracking-widest uppercase mb-1">
-            Scroll
-          </span>
-          {[0, 1, 2].map((i) => (
-            <motion.svg
-              key={i}
-              animate={{ y: [0, 5, 0], opacity: [0.3, 1, 0.3] }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                delay: i * 0.15,
-                ease: "easeInOut",
-              }}
-              className="w-5 h-5 -my-1 text-muted-foreground/70"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </motion.svg>
-          ))}
-        </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 0.8 }}
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center cursor-pointer"
+        onClick={() => {
+          document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" });
+        }}
+      >
+        <span className="text-[10px] text-muted-foreground/60 tracking-widest uppercase mb-1">
+          Scroll
+        </span>
+        {[0, 1, 2].map((i) => (
+          <motion.svg
+            key={i}
+            animate={{ y: [0, 5, 0], opacity: [0.3, 1, 0.3] }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              delay: i * 0.15,
+              ease: "easeInOut",
+            }}
+            className="w-5 h-5 -my-1 text-muted-foreground/70"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </motion.svg>
+        ))}
+      </motion.div>
     </section>
   );
 }
