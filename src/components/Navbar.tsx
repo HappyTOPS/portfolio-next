@@ -35,14 +35,14 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <div className="flex items-center gap-2 ml-4 pl-4 border-l border-border">
+          <div className="flex items-center gap-1">
             {(["hy", "ru", "en"] as const).map((l) => (
               <button
                 key={l}
                 onClick={() => setLang(l)}
-                className={`text-xs font-medium px-2 py-1 rounded transition-colors duration-200 ${
+                className={`text-xs font-medium px-2.5 py-1 rounded transition-colors duration-200 ${
                   lang === l
-                    ? "bg-accent text-foreground"
+                    ? "bg-primary text-white"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -120,14 +120,14 @@ export default function Navbar() {
                   {link.label}
                 </a>
               ))}
-              <div className="flex items-center gap-2 pt-2 border-t border-border">
+              <div className="flex items-center gap-1 pt-2 border-t border-border">
                 {(["hy", "ru", "en"] as const).map((l) => (
                   <button
                     key={l}
                     onClick={() => { setLang(l); setOpen(false); }}
-                    className={`text-xs font-medium px-2 py-1 rounded transition-colors ${
+                    className={`text-xs font-medium px-2.5 py-1 rounded transition-colors ${
                       lang === l
-                        ? "bg-accent text-foreground"
+                        ? "bg-primary text-white"
                         : "text-muted-foreground hover:text-foreground"
                     }`}
                   >

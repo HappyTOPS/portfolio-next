@@ -37,7 +37,7 @@ export default function Skills() {
                 <p className="text-sm font-medium mb-2">{skill.name}</p>
                 <div className="h-1.5 rounded-full bg-muted overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-foreground/20 group-hover:bg-foreground/40 transition-all duration-500"
+                    className="h-full rounded-full bg-primary/30 group-hover:bg-primary/60 transition-all duration-500"
                     style={{ width: `${skill.level}%` }}
                   />
                 </div>

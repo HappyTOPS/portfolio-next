@@ -25,7 +25,7 @@ export default function Experience() {
           {jobs.map((job, i) => (
             <ScrollReveal key={job.key} delay={i * 0.1}>
               <div className="group relative pl-8 before:absolute before:left-0 before:top-2 before:w-[2px] before:h-[calc(100%+1rem)] before:bg-border before:last:hidden">
-                <div className="absolute left-[-5px] top-2 w-3 h-3 rounded-full border-2 border-border bg-background group-hover:border-foreground transition-colors duration-300" />
+                <div className="absolute left-[-5px] top-2 w-3 h-3 rounded-full border-2 border-border bg-background group-hover:border-primary transition-colors duration-300" />
                 <p className="text-xs text-muted-foreground mb-1">
                   {t(`exp.${job.key}.date`)}
                 </p>

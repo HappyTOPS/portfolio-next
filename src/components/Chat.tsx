@@ -132,7 +132,7 @@ export default function Chat() {
               <button
                 onClick={sendMessage}
                 disabled={!input.trim()}
-                className="p-2 rounded-lg bg-foreground text-background disabled:opacity-40 hover:opacity-90 transition-opacity"
+                className="p-2 rounded-lg bg-primary text-white disabled:opacity-40 hover:opacity-90 transition-opacity"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />

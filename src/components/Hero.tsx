@@ -27,7 +27,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none mb-4"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none mb-4 text-primary"
         >
           {t("hero.name")}
         </motion.h1>
@@ -58,7 +58,7 @@ export default function Hero() {
         >
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity duration-200"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white text-sm font-medium hover:opacity-90 transition-opacity duration-200"
           >
             {t("hero.cta")}
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -67,7 +67,7 @@ export default function Hero() {
           </a>
           <a
             href="#projects"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border text-sm font-medium hover:bg-accent transition-colors duration-200"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-primary/50 text-sm font-medium hover:bg-primary/10 transition-colors duration-200"
           >
             {t("hero.projects")}
           </a>
