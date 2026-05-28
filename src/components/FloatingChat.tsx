@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLang } from "@/hooks/useLanguageStore";
 
 interface Message {
   id: number;
@@ -9,45 +10,32 @@ interface Message {
   type: "bot" | "user";
 }
 
-const questions = [
-  {
-    key: "siteType",
-    question:
-      "👋 Привет! Я помогу собрать информацию для вашего проекта.\n\nРасскажите, какой сайт вы хотите создать?",
-  },
-  {
-    key: "features",
-    question:
-      "Отлично! Какой функционал должен быть на сайте?\n(блог, магазин, портфолио, лендинг, CRM...)",
-  },
-  {
-    key: "design",
-    question:
-      "Есть ли примеры сайтов, которые нравятся? Или особые пожелания по дизайну/цветам?",
-  },
-  {
-    key: "deadline",
-    question: "Какой у вас бюджет и дедлайн по проекту?",
-  },
-  {
-    key: "contact",
-    question:
-      "Как с вами связаться? Оставьте email, Telegram или телефон 📱",
-  },
-];
+const BOT_FIRST = "chat.bot.welcome";
+const BOT_CONTACT = "chat.bot.contact";
+const BOT_CONTACT_INVALID = "chat.bot.contact.invalid";
+const BOT_QS = ["chat.bot.q1", "chat.bot.q2", "chat.bot.q3", "chat.bot.q4"];
+const BOT_DONE = "chat.bot.done";
+
+function hasNameAndPhone(text: string): boolean {
+  const hasLetters = /[a-zA-Zа-яА-Я]{2,}/.test(text);
+  const hasDigits = /\d{5,}/.test(text);
+  return hasLetters && hasDigits;
+}
 
 export default function FloatingChat() {
+  const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
-  const [step, setStep] = useState(-1);
+  const [step, setStep] = useState(-2);
   const [collected, setCollected] = useState<Record<string, string>>({});
   const [done, setDone] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const idRef = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const initialLangRef = useRef("");
 
-  // Listen for open-chat event from Hero "Связаться" button
+  // Listen for open-chat event
   useEffect(() => {
     const handler = () => setOpen(true);
     window.addEventListener("open-chat", handler);
@@ -70,15 +58,25 @@ export default function FloatingChat() {
 
   const startChat = () => {
     idRef.current = 0;
+    initialLangRef.current = document.documentElement.lang || "ru";
+
+    // First message: just a greeting
+    const welcomeMsg: Message = {
+      id: idRef.current++,
+      text: t(BOT_FIRST),
+      type: "bot",
+    };
+    // Second message: ask for contact
+    const contactMsg: Message = {
+      id: idRef.current++,
+      text: t(BOT_CONTACT),
+      type: "bot",
+    };
+
+    setMessages([welcomeMsg, contactMsg]);
     setStep(0);
     setDone(false);
-    setMessages([
-      {
-        id: idRef.current++,
-        text: questions[0].question,
-        type: "bot",
-      },
-    ]);
+    setCollected({});
   };
 
   useEffect(() => {
@@ -89,28 +87,50 @@ export default function FloatingChat() {
     if (!input.trim() || done) return;
     const userText = input.trim();
 
-    setMessages((prev) => [
-      ...prev,
-      { id: idRef.current++, text: userText, type: "user" },
-    ]);
+    // Add user message
+    const userMsg: Message = { id: idRef.current++, text: userText, type: "user" };
+    setMessages((prev) => [...prev, userMsg]);
     setInput("");
 
-    const updatedCollected = {
-      ...collected,
-      [questions[step].key]: userText,
-    };
-    setCollected(updatedCollected);
+    // Step 0: contact info — validate name + phone
+    if (step === 0) {
+      if (!hasNameAndPhone(userText)) {
+        // Invalid — ask again, DON'T advance step
+        setTimeout(() => {
+          setMessages((prev) => [
+            ...prev,
+            { id: idRef.current++, text: t(BOT_CONTACT_INVALID), type: "bot" },
+          ]);
+        }, 600);
+        return;
+      }
 
-    const nextStep = step + 1;
-    if (nextStep < questions.length) {
+      // Valid contact — save and proceed to first project question
+      const updated = { ...collected, contact: userText };
+      setCollected(updated);
+
       setTimeout(() => {
         setMessages((prev) => [
           ...prev,
-          {
-            id: idRef.current++,
-            text: questions[nextStep].question,
-            type: "bot",
-          },
+          { id: idRef.current++, text: t(BOT_QS[0]), type: "bot" },
+        ]);
+        setStep(1);
+      }, 600);
+      return;
+    }
+
+    // Steps 1-4: project questions
+    const qIndex = step - 1;
+    const qKeys = ["siteType", "features", "design", "deadline"];
+    const updated = { ...collected, [qKeys[qIndex]]: userText };
+    setCollected(updated);
+
+    const nextStep = step + 1;
+    if (nextStep <= 4) {
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          { id: idRef.current++, text: t(BOT_QS[nextStep - 1]), type: "bot" },
         ]);
         setStep(nextStep);
       }, 600);
@@ -119,13 +139,9 @@ export default function FloatingChat() {
       setTimeout(() => {
         setMessages((prev) => [
           ...prev,
-          {
-            id: idRef.current++,
-            text: "Спасибо! Я получил всю информацию. Скоро свяжусь с вами для уточнения деталей 🚀\n\nХорошего дня! 😊",
-            type: "bot",
-          },
+          { id: idRef.current++, text: t(BOT_DONE), type: "bot" },
         ]);
-        console.log("📋 Project info collected:", updatedCollected);
+        console.log("📋 Project info collected:", updated);
       }, 600);
     }
   };
@@ -134,7 +150,7 @@ export default function FloatingChat() {
     setOpen(false);
     setTimeout(() => {
       setMessages([]);
-      setStep(-1);
+      setStep(-2);
       setCollected({});
       setDone(false);
     }, 300);
@@ -216,7 +232,7 @@ export default function FloatingChat() {
               </div>
             </div>
 
-            {/* Telegram-style Messages */}
+            {/* Messages */}
             <div className="flex-1 overflow-y-auto p-3 space-y-1.5 bg-[#E8ECEF] dark:bg-[#1C1C1E]">
               {messages.map((msg) => (
                 <motion.div
@@ -238,7 +254,7 @@ export default function FloatingChat() {
               <div ref={bottomRef} />
             </div>
 
-            {/* Telegram-style Input */}
+            {/* Input */}
             <div className="flex items-center gap-2 px-3 py-2.5 border-t border-border bg-card shrink-0">
               <input
                 ref={inputRef}
@@ -246,7 +262,7 @@ export default function FloatingChat() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                placeholder="Напишите сообщение..."
+                placeholder={t("chat.placeholder")}
                 className="flex-1 bg-muted dark:bg-[#2C2C2E] rounded-full px-4 py-2 text-sm outline-none placeholder:text-muted-foreground/60"
                 disabled={done}
               />
