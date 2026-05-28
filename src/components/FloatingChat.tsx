@@ -180,7 +180,7 @@ export default function FloatingChat() {
               <div className="flex items-center gap-2.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-green-400 shadow-sm" />
                 <div>
-                  <p className="text-sm font-medium">Чат с Альбертом</p>
+                  <p className="text-sm font-medium">Чат с Левоном</p>
                   <p className="text-[10px] text-white/70">Online</p>
                 </div>
               </div>

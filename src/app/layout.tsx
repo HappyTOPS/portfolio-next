@@ -6,8 +6,8 @@ import Footer from "@/components/Footer";
 import FloatingChat from "@/components/FloatingChat";
 
 export const metadata: Metadata = {
-  title: "Альберт | Product Engineer",
-  description: "Личное портфолио Альберта — продуктового инженера",
+  title: "Левон | Product Engineer",
+  description: "Личное портфолио Левона — продуктового инженера",
 };
 
 export default function RootLayout({

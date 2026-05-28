@@ -8,7 +8,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "nav.projects": "Նախագծեր",
     "nav.contact": "Կապ",
     "hero.greeting": "Բարև, ես",
-    "hero.name": "Ալբերտն եմ",
+    "hero.name": "Լևոնն եմ",
     "hero.title": "Product Engineer",
     "hero.desc":
       "Ես ստեղծում եմ թվային արտադրանքներ, որոնք համատեղում են մաքուր դիզայնը, հզոր ինժեներիան և օգտատիրոջ հիանալի փորձը:",
@@ -44,8 +44,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     "chat.placeholder": "Գրեք հաղորդագրություն...",
     "chat.send": "Ուղարկել",
     "chat.bot.welcome":
-      "Բարև! Ես Ալբերտի AI օգնականն եմ: Ինչպե՞ս կարող եմ օգնել:",
-    "footer.text": "© 2026 Альберт. Բոլոր իրավունքները պաշտպանված են:",
+      "Բարև! Ես Լևոնի AI օգնականն եմ: Ինչպե՞ս կարող եմ օգնել:",
+    "footer.text": "© 2026 Լևոն. Բոլոր իրավունքները պաշտպանված են:",
   },
   ru: {
     "nav.home": "Главная",
@@ -54,7 +54,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "nav.projects": "Проекты",
     "nav.contact": "Связь",
     "hero.greeting": "Привет, я",
-    "hero.name": "Альберт",
+    "hero.name": "Левон",
     "hero.title": "Product Engineer",
     "hero.desc":
       "Я создаю цифровые продукты, сочетающие чистый дизайн, мощную инженерию и отличный пользовательский опыт.",
@@ -91,8 +91,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     "chat.placeholder": "Напишите сообщение...",
     "chat.send": "Отправить",
     "chat.bot.welcome":
-      "Привет! Я AI-помощник Альберта. Чем могу помочь?",
-    "footer.text": "© 2026 Альберт. Все права защищены.",
+      "Привет! Я AI-помощник Левона. Чем могу помочь?",
+    "footer.text": "© 2026 Левон. Все права защищены.",
   },
   en: {
     "nav.home": "Home",
@@ -101,7 +101,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "nav.projects": "Projects",
     "nav.contact": "Contact",
     "hero.greeting": "Hi, I'm",
-    "hero.name": "Albert",
+    "hero.name": "Levon",
     "hero.title": "Product Engineer",
     "hero.desc":
       "I build digital products that blend clean design, robust engineering, and great user experiences.",
@@ -137,7 +137,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "chat.placeholder": "Type a message...",
     "chat.send": "Send",
     "chat.bot.welcome":
-      "Hi! I'm Albert's AI assistant. How can I help you?",
-    "footer.text": "© 2026 Albert. All rights reserved.",
+      "Hi! I'm Levon's AI assistant. How can I help you?",
+    "footer.text": "© 2026 Levon. All rights reserved.",
   },
 };
