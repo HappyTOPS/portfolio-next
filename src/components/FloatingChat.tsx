@@ -8,6 +8,7 @@ interface Message {
   id: number;
   text: string;
   type: "bot" | "user";
+  tKey?: string; // translation key for re-translate on lang change
 }
 
 const BOT_FIRST = "chat.bot.welcome";
@@ -23,7 +24,7 @@ function hasNameAndPhone(text: string): boolean {
 }
 
 export default function FloatingChat() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -33,7 +34,6 @@ export default function FloatingChat() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const idRef = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
-  const initialLangRef = useRef("");
 
   // Listen for open-chat event
   useEffect(() => {
@@ -56,21 +56,32 @@ export default function FloatingChat() {
     }
   }, [open]);
 
+  // Re-translate bot messages when language changes
+  useEffect(() => {
+    if (messages.length === 0) return;
+    setMessages((prev) =>
+      prev.map((msg) =>
+        msg.tKey ? { ...msg, text: t(msg.tKey) } : msg
+      )
+    );
+  }, [lang]);
+
   const startChat = () => {
     idRef.current = 0;
-    initialLangRef.current = document.documentElement.lang || "ru";
 
     // First message: just a greeting
     const welcomeMsg: Message = {
       id: idRef.current++,
       text: t(BOT_FIRST),
       type: "bot",
+      tKey: BOT_FIRST,
     };
     // Second message: ask for contact
     const contactMsg: Message = {
       id: idRef.current++,
       text: t(BOT_CONTACT),
       type: "bot",
+      tKey: BOT_CONTACT,
     };
 
     setMessages([welcomeMsg, contactMsg]);
@@ -99,7 +110,7 @@ export default function FloatingChat() {
         setTimeout(() => {
           setMessages((prev) => [
             ...prev,
-            { id: idRef.current++, text: t(BOT_CONTACT_INVALID), type: "bot" },
+            { id: idRef.current++, text: t(BOT_CONTACT_INVALID), type: "bot", tKey: BOT_CONTACT_INVALID },
           ]);
         }, 600);
         return;
@@ -112,7 +123,7 @@ export default function FloatingChat() {
       setTimeout(() => {
         setMessages((prev) => [
           ...prev,
-          { id: idRef.current++, text: t(BOT_QS[0]), type: "bot" },
+          { id: idRef.current++, text: t(BOT_QS[0]), type: "bot", tKey: BOT_QS[0] },
         ]);
         setStep(1);
       }, 600);
@@ -130,7 +141,7 @@ export default function FloatingChat() {
       setTimeout(() => {
         setMessages((prev) => [
           ...prev,
-          { id: idRef.current++, text: t(BOT_QS[nextStep - 1]), type: "bot" },
+          { id: idRef.current++, text: t(BOT_QS[nextStep - 1]), type: "bot", tKey: BOT_QS[nextStep - 1] },
         ]);
         setStep(nextStep);
       }, 600);
@@ -139,7 +150,7 @@ export default function FloatingChat() {
       setTimeout(() => {
         setMessages((prev) => [
           ...prev,
-          { id: idRef.current++, text: t(BOT_DONE), type: "bot" },
+          { id: idRef.current++, text: t(BOT_DONE), type: "bot", tKey: BOT_DONE },
         ]);
         console.log("📋 Project info collected:", updated);
       }, 600);
