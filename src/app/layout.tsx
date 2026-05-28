@@ -3,6 +3,7 @@ import "./globals.css";
 import { LangProvider } from "@/hooks/useLanguageStore";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FloatingChat from "@/components/FloatingChat";
 
 export const metadata: Metadata = {
   title: "Альберт | Product Engineer",
@@ -29,6 +30,7 @@ export default function RootLayout({
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
+          <FloatingChat />
         </LangProvider>
       </body>
     </html>

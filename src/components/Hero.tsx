@@ -56,15 +56,16 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
         >
-          <a
-            href="#contact"
-            className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3.5 sm:py-3 rounded-full bg-primary text-white text-sm font-medium hover:opacity-90 transition-opacity duration-200"
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent("open-chat"))}
+            className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3.5 sm:py-3 rounded-full bg-primary text-white text-sm font-medium hover:opacity-90 transition-opacity duration-200 cursor-pointer"
           >
             {t("hero.cta")}
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </a>
+          </button>
           <a
             href="#projects"
             className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3.5 sm:py-3 rounded-full border border-primary/50 text-sm font-medium hover:bg-primary/10 transition-colors duration-200"
@@ -78,7 +79,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 0.8 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center cursor-pointer"
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center cursor-pointer"
           onClick={() => {
             document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" });
           }}
