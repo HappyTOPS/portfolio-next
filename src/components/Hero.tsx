@@ -81,7 +81,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.8 }}
-        className="absolute bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center cursor-pointer"
+        className="absolute bottom-2 left-1/2 -translate-x-1/2 flex flex-col items-center cursor-pointer"
         onClick={() => {
           document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" });
         }}
