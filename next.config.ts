@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: "/lana-ai",
+  basePath: "/portfolio-next",
 };
 
 export default nextConfig;
