@@ -45,6 +45,7 @@ export default function FloatingChat() {
   const [done, setDone] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const idRef = useRef(0);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Listen for open-chat event from Hero "Связаться" button
   useEffect(() => {
@@ -52,6 +53,13 @@ export default function FloatingChat() {
     window.addEventListener("open-chat", handler);
     return () => window.removeEventListener("open-chat", handler);
   }, []);
+
+  // Auto-focus input when chat opens
+  useEffect(() => {
+    if (open) {
+      setTimeout(() => inputRef.current?.focus(), 300);
+    }
+  }, [open]);
 
   // Start chat when opening
   useEffect(() => {
@@ -175,54 +183,54 @@ export default function FloatingChat() {
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="mb-4 w-[380px] max-w-[calc(100vw-2rem)] h-[560px] max-h-[calc(100vh-10rem)] rounded-2xl border border-border bg-card shadow-2xl flex flex-col overflow-hidden"
           >
-            {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-primary text-white shrink-0">
+            {/* Telegram-style Header */}
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-[#3390EC] text-white shrink-0">
               <div className="flex items-center gap-2.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-green-400 shadow-sm" />
+                <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-sm font-semibold">
+                  L
+                </div>
                 <div>
-                  <p className="text-sm font-medium">Чат с Левоном</p>
-                  <p className="text-[10px] text-white/70">Online</p>
+                  <p className="text-sm font-semibold">Левон</p>
+                  <p className="text-[11px] text-white/80">был(а) недавно</p>
                 </div>
               </div>
-              <button
-                onClick={handleClose}
-                className="p-1.5 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
-              >
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={handleClose}
+                  className="p-2 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
 
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 chat-scroll">
+            {/* Telegram-style Messages */}
+            <div className="flex-1 overflow-y-auto p-3 space-y-1.5 bg-[#E8ECEF] dark:bg-[#1C1C1E]">
               {messages.map((msg) => (
                 <motion.div
                   key={msg.id}
-                  initial={{ opacity: 0, y: 10, scale: 0.97 }}
+                  initial={{ opacity: 0, y: 8, scale: 0.97 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                  className={`flex ${
-                    msg.type === "user" ? "justify-end" : "justify-start"
-                  }`}
+                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                  className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"}`}
                 >
-                  <div
-                    className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-line ${
-                      msg.type === "user"
-                        ? "bg-primary text-white rounded-br-md"
-                        : "bg-muted text-foreground rounded-bl-md"
-                    }`}
-                  >
+                  <div className={`max-w-[82%] px-3.5 py-2 text-sm leading-relaxed whitespace-pre-line ${
+                    msg.type === "user"
+                      ? "bg-[#3390EC] text-white rounded-[18px] rounded-br-[6px]"
+                      : "bg-white dark:bg-[#2C2C2E] text-foreground rounded-[18px] rounded-bl-[6px] shadow-[0_1px_1px_rgba(0,0,0,0.05)]"
+                  }`}>
                     {msg.text}
                   </div>
                 </motion.div>
@@ -230,25 +238,25 @@ export default function FloatingChat() {
               <div ref={bottomRef} />
             </div>
 
-            {/* Input */}
-            <div className="flex items-center gap-2 p-3 border-t border-border shrink-0">
+            {/* Telegram-style Input */}
+            <div className="flex items-center gap-2 px-3 py-2.5 border-t border-border bg-card shrink-0">
               <input
+                ref={inputRef}
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && sendMessage()}
                 placeholder="Напишите сообщение..."
-                className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+                className="flex-1 bg-muted dark:bg-[#2C2C2E] rounded-full px-4 py-2 text-sm outline-none placeholder:text-muted-foreground/60"
                 disabled={done}
-                autoFocus
               />
               <button
                 onClick={sendMessage}
                 disabled={!input.trim() || done}
-                className="p-2 rounded-lg bg-primary text-white disabled:opacity-40 hover:opacity-90 transition-opacity shrink-0 cursor-pointer"
+                className="w-9 h-9 rounded-full bg-[#3390EC] text-white disabled:opacity-40 hover:opacity-90 transition-opacity shrink-0 flex items-center justify-center cursor-pointer"
               >
                 <svg
-                  className="w-4 h-4"
+                  className="w-4 h-4 rotate-45 ml-0.5 mt-0.5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
