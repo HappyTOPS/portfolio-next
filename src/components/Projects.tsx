@@ -50,9 +50,29 @@ export default function Projects() {
                   className="block"
                 >
                   <div
-                    className={`h-32 sm:h-44 bg-gradient-to-br ${proj.gradient} opacity-80 group-hover:opacity-100 transition-opacity duration-500 relative overflow-hidden`}
+                    className={`h-32 sm:h-44 bg-gradient-to-br ${proj.gradient} opacity-80 group-hover:opacity-100 transition-opacity duration-500 relative overflow-hidden flex items-center justify-center`}
                   >
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.15),transparent_70%)]" />
+                    {proj.key === "proj1" && (
+                      <svg className="relative w-16 h-16 sm:w-20 sm:h-20 text-white/30 group-hover:text-white/60 transition-colors duration-500" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="4" y="8" width="40" height="24" rx="2" />
+                        <line x1="12" y1="36" x2="36" y2="36" />
+                        <line x1="18" y1="40" x2="30" y2="40" />
+                        <line x1="24" y1="36" x2="24" y2="40" />
+                      </svg>
+                    )}
+                    {proj.key === "proj2" && (
+                      <svg className="relative w-16 h-16 sm:w-20 sm:h-20 text-white/30 group-hover:text-white/60 transition-colors duration-500" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M24 4C13 4 4 13 4 24c0 8.8 5.7 16.3 13.7 19 .6.1 1-.3 1-.7v-3.4c-5.6 1.2-6.7-2.7-6.7-2.7-.9-2.3-2.2-3-2.2-3-1.8-1.2.1-1.2.1-1.2 2 .1 3.1 2 3.1 2 1.8 3 4.7 2.2 5.8 1.7.2-1.3.7-2.2 1.3-2.7-4.4-.5-9.1-2.2-9.1-9.8 0-2.2.8-4 2-5.4-.2-.5-.9-2.6.2-5.4 0 0 1.7-.5 5.5 2.1A19.3 19.3 0 0124 14.5c1.7 0 3.4.2 5 .7 3.8-2.6 5.5-2.1 5.5-2.1 1.1 2.8.4 4.9.2 5.4 1.3 1.4 2 3.2 2 5.4 0 7.7-4.7 9.3-9.2 9.8.7.6 1.4 1.9 1.4 3.8v5.7c0 .4.4.8 1 .7 8-2.7 13.7-10.2 13.7-19C44 13 35 4 24 4z" />
+                      </svg>
+                    )}
+                    {proj.key === "proj3" && (
+                      <svg className="relative w-16 h-16 sm:w-20 sm:h-20 text-white/30 group-hover:text-white/60 transition-colors duration-500" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="16 18 8 24 16 30" />
+                        <polyline points="32 18 40 24 32 30" />
+                        <line x1="28" y1="14" x2="20" y2="34" />
+                      </svg>
+                    )}
                   </div>
                 </a>
                 <div className="p-5">
