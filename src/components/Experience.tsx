@@ -13,7 +13,7 @@ export default function Experience() {
   const { t } = useLang();
 
   return (
-    <section id="experience" className="py-24 md:py-32">
+    <section id="experience" className="py-16 sm:py-24 md:py-32">
       <div className="max-w-3xl mx-auto px-6">
         <ScrollReveal>
           <h2 className="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-12">
@@ -24,8 +24,8 @@ export default function Experience() {
         <div className="space-y-12">
           {jobs.map((job, i) => (
             <ScrollReveal key={job.key} delay={i * 0.1}>
-              <div className="group relative pl-8 before:absolute before:left-0 before:top-2 before:w-[2px] before:h-[calc(100%+1rem)] before:bg-border before:last:hidden">
-                <div className="absolute left-[-5px] top-2 w-3 h-3 rounded-full border-2 border-border bg-background group-hover:border-primary transition-colors duration-300" />
+              <div className="group relative pl-6 sm:pl-8 before:absolute before:left-0 before:top-2 before:w-[2px] before:h-[calc(100%+1rem)] before:bg-border before:last:hidden">
+                <div className="absolute left-[-5px] top-2 w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full border-2 border-border bg-background group-hover:border-primary transition-colors duration-300" />
                 <p className="text-xs text-muted-foreground mb-1">
                   {t(`exp.${job.key}.date`)}
                 </p>

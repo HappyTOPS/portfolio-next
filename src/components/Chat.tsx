@@ -76,7 +76,7 @@ export default function Chat() {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-32 bg-muted/50">
+    <section id="contact" className="py-16 sm:py-24 md:py-32 bg-muted/50">
       <div className="max-w-2xl mx-auto px-6">
         <ScrollReveal>
           <h2 className="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-8">
@@ -87,7 +87,7 @@ export default function Chat() {
         <ScrollReveal delay={0.1}>
           <div className="rounded-2xl border border-border bg-card overflow-hidden">
             {/* Messages */}
-            <div className="h-[400px] overflow-y-auto p-4 space-y-3 chat-scroll">
+            <div className="h-[300px] sm:h-[400px] overflow-y-auto p-4 space-y-3 chat-scroll">
               {messages.map((msg) => (
                 <motion.div
                   key={msg.id}

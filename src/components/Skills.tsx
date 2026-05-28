@@ -22,7 +22,7 @@ export default function Skills() {
   const { t } = useLang();
 
   return (
-    <section id="skills" className="py-24 md:py-32 bg-muted/50">
+    <section id="skills" className="py-16 sm:py-24 md:py-32 bg-muted/50">
       <div className="max-w-4xl mx-auto px-6">
         <ScrollReveal>
           <h2 className="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-12">
@@ -33,7 +33,7 @@ export default function Skills() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
           {skills.map((skill, i) => (
             <ScrollReveal key={skill.name} delay={i * 0.05}>
-              <div className="group p-4 rounded-xl border border-border bg-card hover:border-foreground/30 transition-all duration-300 cursor-default">
+              <div className="group p-3 sm:p-4 rounded-xl border border-border bg-card hover:border-foreground/30 transition-all duration-300 cursor-default">
                 <p className="text-sm font-medium mb-2">{skill.name}</p>
                 <div className="h-1.5 rounded-full bg-muted overflow-hidden">
                   <div
